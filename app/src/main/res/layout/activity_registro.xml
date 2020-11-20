@@ -139,7 +139,7 @@
             android:layout_column="0"
             android:layout_below="@+id/img_contraseña"
             android:layout_gravity="center_vertical"
-            android:src="@drawable/img_contraseña" />
+            android:src="@drawable/img_contrasenia" />
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/til_contraseña"

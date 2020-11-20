@@ -20,9 +20,11 @@ public class RegistroActivity extends AppCompatActivity {
     private TextInputLayout tilNombre;
     private TextInputLayout tilTelefono;
     private TextInputLayout tilCorreo;
+    private TextInputLayout tilContraseña;
     private EditText campoNombre;
     private EditText campoTelefono;
     private EditText campoCorreo;
+    private EditText campoContraseña;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,11 +34,13 @@ public class RegistroActivity extends AppCompatActivity {
         tilNombre = (TextInputLayout) findViewById(R.id.til_nombre);
         tilTelefono = (TextInputLayout) findViewById(R.id.til_telefono);
         tilCorreo = (TextInputLayout) findViewById(R.id.til_correo);
+        tilContraseña = (TextInputLayout) findViewById(R.id.til_contraseña);
 
         // Referencias ETs
         campoNombre = (EditText) findViewById(R.id.campo_nombre);
         campoTelefono = (EditText) findViewById(R.id.campo_telefono);
         campoCorreo = (EditText) findViewById(R.id.campo_correo);
+        campoContraseña = (EditText) findViewById(R.id.campo_contraseña);
 
         campoNombre.addTextChangedListener(new TextWatcher() {
             @Override
@@ -89,6 +93,25 @@ public class RegistroActivity extends AppCompatActivity {
             }
         });
 
+        campoContraseña.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                tilContraseña.setError(null);
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
+
+
         // Referencia Botón
         Button botonAceptar = (Button) findViewById(R.id.boton_aceptar);
         botonAceptar.setOnClickListener(new View.OnClickListener() {
@@ -134,16 +157,29 @@ public class RegistroActivity extends AppCompatActivity {
         return true;
     }
 
+    private boolean esContraValido(String contra) {
+        if (contra.length() < 5) {
+            tilNombre.setError("Contraseña muy corta. Debe superar los 4 caracteres.");
+            return false;
+        } else {
+            tilNombre.setError(null);
+        }
+
+        return true;
+    }
+
     private void validarDatos() {
         String nombre = tilNombre.getEditText().getText().toString();
         String telefono = tilTelefono.getEditText().getText().toString();
         String correo = tilCorreo.getEditText().getText().toString();
+        String contraseña = tilContraseña.getEditText().getText().toString();
 
         boolean a = esNombreValido(nombre);
         boolean b = esTelefonoValido(telefono);
         boolean c = esCorreoValido(correo);
+        boolean d = esContraValido(contraseña);
 
-        if (a && b && c) {
+        if (a && b && c && d) {
             // OK, se pasa a la siguiente acción
             Toast.makeText(this, "Se guarda el registro", Toast.LENGTH_LONG).show();
         }
