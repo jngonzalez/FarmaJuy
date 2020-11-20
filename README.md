@@ -1,3 +1,0 @@
-# FarmaJuy
-
-Branch2
